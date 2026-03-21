@@ -5,7 +5,7 @@ A prompt evaluation benchmark for testing LLM outputs.
 ## Installation
 
 ```bash
-pip instal oo-test-project
+pip install oo-test-project
 ```
 
 ## Usage
