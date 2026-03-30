@@ -38,12 +38,13 @@ def evaluate(prompt: str, expected: str, actual: str | None = None) -> EvalResul
         else:
             score = len(expected_words & actual_words) / len(expected_words)
 
+    rounded = round(score, 2)
     return EvalResult(
         prompt=prompt,
         expected=expected,
         actual=actual,
-        score=round(score, 2),
-        passed=score >= 0.8,
+        score=rounded,
+        passed=rounded >= 0.8,
     )
 
 
