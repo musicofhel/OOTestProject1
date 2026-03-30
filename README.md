@@ -22,3 +22,8 @@ print(result.score)
 pip install -e ".[dev]"
 pytest
 ```
+
+## Getting Started
+
+pip install oo-test-project
+
