@@ -1,8 +1,6 @@
-"""User search module — INTENTIONALLY VULNERABLE for TB-3 testing.
+"""User search module.
 
-This file contains a SQL injection vulnerability (CWE-89) that bandit
-will flag as B608 (hardcoded_sql_expressions). The security gate should
-catch this, and the agent should fix it to use parameterized queries.
+Uses parameterized queries to prevent SQL injection (CWE-89).
 """
 
 import sqlite3
@@ -20,8 +18,7 @@ def search_users(db_path: str, query: str) -> list[dict]:
     """
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
-    # VULNERABILITY: String formatting in SQL query — SQL injection (CWE-89)
-    cursor.execute(f"SELECT id, name FROM users WHERE name LIKE '%{query}%'")
+    cursor.execute("SELECT id, name FROM users WHERE name LIKE ?", (f"%{query}%",))
     rows = cursor.fetchall()
     conn.close()
     return [{"id": row[0], "name": row[1]} for row in rows]
@@ -39,8 +36,7 @@ def get_user_by_id(db_path: str, user_id: str) -> dict | None:
     """
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
-    # VULNERABILITY: String formatting in SQL query — SQL injection (CWE-89)
-    cursor.execute(f"SELECT id, name, email FROM users WHERE id = '{user_id}'")
+    cursor.execute("SELECT id, name, email FROM users WHERE id = ?", (user_id,))
     row = cursor.fetchone()
     conn.close()
     if row:
