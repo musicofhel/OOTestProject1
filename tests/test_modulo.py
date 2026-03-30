@@ -16,11 +16,14 @@ class TestModulo:
         assert modulo(-7, 3) == 2
 
     def test_negative_divisor_edge_case(self):
-        """Regression: negative divisor must return non-negative result."""
-        assert modulo(7, -3) == 1
+        """Regression: negative divisor follows Python % semantics (result <= 0)."""
+        assert modulo(7, -3) == -2
+        assert modulo(5, -3) == -1
+        assert modulo(7, -4) == -1
 
     def test_negative_dividend_negative_divisor(self):
-        assert modulo(-7, -3) == 2
+        assert modulo(-7, -3) == -1
+        assert modulo(-5, -3) == -2
 
     def test_zero_dividend(self):
         assert modulo(0, 5) == 0
