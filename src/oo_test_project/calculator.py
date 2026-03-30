@@ -4,13 +4,10 @@
 
 
 def modulo(a, b):
-    """Return a % b.
+    """Return a % b using Python's floored-division semantics.
 
-    Raises ValueError if b is zero or negative, to avoid confusing results
-    from Python's floored-division modulo with negative divisors.
+    Raises ValueError if b is zero.
     """
     if b == 0:
         raise ValueError("divisor cannot be zero")
-    if b < 0:
-        raise ValueError("divisor must be positive")
     return a % b
