@@ -37,7 +37,7 @@ class TestSanitizeInput:
             "0x1A",
             "inf",
             "nan",
-            "; DROP TABLE users",
+            "; SELECT * FROM users",
         ],
     )
     def test_rejects_non_numeric(self, value):
