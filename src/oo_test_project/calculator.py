@@ -1,6 +1,20 @@
 """Calculator utilities for oo-test-project."""
 
-# TB-2 will add a factorial function here
+
+def factorial(n):
+    """Return n! for non-negative integers.
+
+    Raises TypeError for non-integer input.
+    Raises ValueError for negative input.
+    """
+    if not isinstance(n, int):
+        raise TypeError("integer input required")
+    if n < 0:
+        raise ValueError("negative input not allowed")
+    result = 1
+    for i in range(2, n + 1):
+        result *= i
+    return result
 
 
 def modulo(a, b):
