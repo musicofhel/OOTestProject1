@@ -17,6 +17,19 @@ def normalize_score(raw: float, min_val: float = 0.0, max_val: float = 1.0) -> f
     return max(0.0, min(1.0, (raw - min_val) / (max_val - min_val)))
 
 
+def round_score(score: float, decimals: int = 2) -> float:
+    """Round a score to a given number of decimal places.
+
+    Args:
+        score: The score to round.
+        decimals: Number of decimal places (default 2).
+
+    Returns:
+        Rounded score.
+    """
+    return round(score, decimals)
+
+
 def weighted_average(scores: list[float], weights: list[float] | None = None) -> float:
     """Compute weighted average of scores.
 
