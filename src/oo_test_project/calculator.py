@@ -1,3 +1,8 @@
 """Calculator utilities for oo-test-project."""
 
-# TB-2 will add a factorial function here
+
+def abs(value):
+    """Return the absolute value of a number (int or float)."""
+    if value < 0:
+        return -value
+    return value
