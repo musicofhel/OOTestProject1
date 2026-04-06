@@ -1,0 +1,51 @@
+"""User search module.
+
+Provides functions to search and look up users from a SQLite database
+using parameterized queries to prevent SQL injection (CWE-89).
+"""
+
+import sqlite3
+
+
+def search_users(db_path: str, query: str) -> list[dict]:
+    """Search users by name.
+
+    Args:
+        db_path: Path to the SQLite database.
+        query: Search term for user name.
+
+    Returns:
+        List of matching user dicts with 'id' and 'name' keys.
+    """
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+    cursor.execute(
+        "SELECT id, name FROM users WHERE name LIKE ?",
+        ("%" + query + "%",),
+    )
+    rows = cursor.fetchall()
+    conn.close()
+    return [{"id": row[0], "name": row[1]} for row in rows]
+
+
+def get_user_by_id(db_path: str, user_id: str) -> dict | None:
+    """Get a single user by ID.
+
+    Args:
+        db_path: Path to the SQLite database.
+        user_id: The user ID to look up.
+
+    Returns:
+        User dict or None if not found.
+    """
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+    cursor.execute(
+        "SELECT id, name, email FROM users WHERE id = ?",
+        (user_id,),
+    )
+    row = cursor.fetchone()
+    conn.close()
+    if row:
+        return {"id": row[0], "name": row[1], "email": row[2]}
+    return None
