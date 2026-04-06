@@ -1,5 +1,5 @@
 """Tests for scoring utilities."""
-from oo_test_project.scoring import normalize_score, weighted_average
+from oo_test_project.scoring import normalize_score, round_score, weighted_average
 import pytest
 
 
@@ -37,3 +37,20 @@ class TestWeightedAverage:
     def test_mismatched_lengths(self):
         with pytest.raises(ValueError):
             weighted_average([1.0], weights=[1.0, 2.0])
+
+
+class TestRoundScore:
+    def test_default_two_decimals(self):
+        assert round_score(0.6666) == 0.67
+
+    def test_custom_decimals(self):
+        assert round_score(0.6666, 3) == 0.667
+
+    def test_already_rounded(self):
+        assert round_score(0.5) == 0.5
+
+    def test_zero(self):
+        assert round_score(0.0) == 0.0
+
+    def test_one(self):
+        assert round_score(1.0) == 1.0
